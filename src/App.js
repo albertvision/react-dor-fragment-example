@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
+import Fragment from 'react-dot-fragment';
 import './App.css';
+import Alert from './Alert';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      showError: false
+    };
+
+    this.toggleError = this.toggleError.bind(this);
+  }
+
+  toggleError() {
+    this.setState(state => ({
+      showError: !state.showError
+    }));
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.toggleError();
+    })
+    setTimeout(() => {
+      this.toggleError();
+    })
+  }
+
+  render() {
+
+    return (
+      <Fragment>
+        <button onClick={this.toggleError}>
+          Toggle Error Container
+        </button>
+        {this.state.showError && <Alert heading="Something wrong happened!" message="WTF?!" />}
+      </Fragment>
+    )
+  }
 }
 
 export default App;
